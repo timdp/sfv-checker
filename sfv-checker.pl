@@ -36,7 +36,7 @@ foreach my $sfvfile (@ARGV) {
 		my ($filename, $crc32) = ($1, $2);
 		my $path = abs_path("$dir/$filename");
 		$crc32 = canonicalize_crc($crc32);
-		push @entries, [ $path, basename($path), $crc32 ];
+		push @entries, [ $path, $crc32 ];
 	}
 	close($sfvh);
 	my $total = scalar(@entries);
@@ -45,7 +45,8 @@ foreach my $sfvfile (@ARGV) {
 	my $ok = 0;
 	my $i = 0;
 	foreach my $entry (@entries) {
-		my ($abspath, $filename, $crc32) = @$entry;
+		my ($abspath, $crc32) = @$entry;
+		my $filename = basename($abspath);
 		printf($format, ++$i, $crc32,
 			(length($filename) > $max_filename_length
 				? substr($filename, 0, $max_filename_length - 3) . '...'
