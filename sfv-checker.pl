@@ -50,7 +50,6 @@ foreach my $sfvfile (@ARGV) {
 			(length($filename) > $max_filename_length
 				? substr($filename, 0, $max_filename_length - 3) . '...'
 				: $filename));
-		$ctx->reset();
 		my $fh;
 		unless (open($fh, '<', $abspath)) {
 			print "Error$/$!$/";
@@ -59,7 +58,9 @@ foreach my $sfvfile (@ARGV) {
 		binmode($fh);
 		$ctx->addfile($fh);
 		close($fh);
-		my $digest = canonicalize_crc($ctx->hexdigest());
+		my $digest = $ctx->hexdigest();
+		$ctx->reset();
+		$digest = canonicalize_crc($digest);
 		unless ($digest eq $crc32) {
 			print "$digest :-($/";
 			next;
