@@ -78,7 +78,7 @@ foreach my $sfvfile (@ARGV) {
 	print $/;
 }
 
-exit($errors);
+exit($errors ? 2 : 0);
 
 sub canonicalize_crc {
 	return sprintf '%08s', lc shift;
