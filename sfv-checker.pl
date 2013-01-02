@@ -1,5 +1,9 @@
 #!/usr/bin/perl
 
+# SFV Checker
+# By Tim De Pauw <http://timdp.github.com/>
+# Available under the MIT License
+
 use strict;
 use warnings;
 
